@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
 import java.time.Duration;
 import java.util.HashMap;
 
@@ -32,7 +33,9 @@ public class CheckCartTest {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
         WebDriver driver = new ChromeDriver(options);
+        SoftAssert softAssert = new SoftAssert();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
         driver.get("https://www.saucedemo.com/");
         //Логинимся на сайте
         driver.findElement(By.xpath("//*[@id=\"user-name\"]")).sendKeys("standard_user");
@@ -48,8 +51,9 @@ public class CheckCartTest {
         String nameItemInCart = driver.findElement(By.xpath("//*[@id=\"item_5_title_link\"]")).getText();
         String priceItemInCart = driver.findElement(By.xpath("//*[@class='inventory_item_price']")).getText();
         //сравниваем наименование товара и цену в списке и в корзине
-        Assert.assertEquals(nameItemInCart, nameItem);
-        Assert.assertEquals(priceItemInCart, priceItem);
+        softAssert.assertEquals(nameItemInCart, nameItem);
+        softAssert.assertEquals(priceItemInCart, priceItem);
         driver.quit();
+        softAssert.assertAll();
     }
 }
