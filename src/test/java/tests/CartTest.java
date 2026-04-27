@@ -57,5 +57,6 @@ public class CartTest extends BaseTest {
         //удаляем продукт и проверяем, что корзина пустая и счётчик в иконке пустой
          productsPage.removeProductFromProductsList(0);
          softAssert.assertEquals(cartPage.countProductInCart(),0);
+         softAssert.assertAll();
     }
 }

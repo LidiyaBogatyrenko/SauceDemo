@@ -18,6 +18,7 @@ public class CheckoutTest extends BaseTest {
         checkoutPage.fillCheckoutInformation("Max", "Power","123-456");
         checkoutPage.clickContinue();
         softAssert.assertEquals(checkoutOverviewPage.getTitle(), "Checkout: Overview");
+        softAssert.assertAll();
     }
 
     @Test
@@ -33,6 +34,7 @@ public class CheckoutTest extends BaseTest {
         checkoutPage.fillCheckoutInformation("", "Power","123-456");
         checkoutPage.clickContinue();
         softAssert.assertEquals(checkoutPage.getErrorMessage(), "Error: First Name is required");
+        softAssert.assertAll();
     }
 
     @Test
@@ -48,6 +50,7 @@ public class CheckoutTest extends BaseTest {
         checkoutPage.fillCheckoutInformation("Max", "","123-456");
         checkoutPage.clickContinue();
         softAssert.assertEquals(checkoutPage.getErrorMessage(), "Error: Last Name is required");
+        softAssert.assertAll();
     }
 
     @Test
@@ -63,5 +66,6 @@ public class CheckoutTest extends BaseTest {
         checkoutPage.fillCheckoutInformation("Max", "Power","");
         checkoutPage.clickContinue();
         softAssert.assertEquals(checkoutPage.getErrorMessage(), "Error: Postal Code is required");
+        softAssert.assertAll();
     }
 }

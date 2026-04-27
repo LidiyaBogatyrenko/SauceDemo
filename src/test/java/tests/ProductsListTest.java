@@ -20,7 +20,7 @@ public class ProductsListTest extends BaseTest {
         //проверяем число продуктов в иконке корзины
         String countOnCartIcon = productsPage.getCountOnCartIcon();
         int countProductOnCartIcon = Integer.parseInt(countOnCartIcon);
-        softAssert.assertEquals(countProductOnCartIcon, "countProductsInProductsList");
+        softAssert.assertEquals(countProductOnCartIcon, countProductsInProductsList);
         //проверяем, что кол-во кнопок remove равно кол-ву продуктов в списке
         int countRemoveButton = driver.findElements(By.xpath("//*[contains(@id, 'remove-')]")).size();
         softAssert.assertEquals(countRemoveButton, countProductsInProductsList);
@@ -29,5 +29,5 @@ public class ProductsListTest extends BaseTest {
             productsPage.removeProductFromProductsList(0);
         }
         softAssert.assertEquals(productsPage.getCountOnCartIcon(), "0");
-    }
+        softAssert.assertAll();    }
 }
