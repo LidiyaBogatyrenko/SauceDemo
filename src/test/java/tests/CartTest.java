@@ -14,14 +14,16 @@ public class CartTest extends BaseTest {
     3d. Проверить (assertEquals) стоимость товара и его имя в корзине
     4. Создать Pull Request и добавить ментора в коллабораторы
      */
-    @Test //добавление одного продукта в корзину и проверка его наименования и цены
+    @Test(testName = "Добавление одного продукта в корзину",
+            description = "Проверка добавления одного продукта в корзину и проверка его наименования и цены",
+            groups = {"smoke"}
+    )
     public void addOneProductInCart() {
         SoftAssert softAssert = new SoftAssert();
 
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.getTitle();
-
         //получаем наименование и цену продукта в списке товаров
         String nameItem = productsPage.getProductName(3);
         String priceItem = productsPage.getProductPrice(3);
@@ -39,7 +41,10 @@ public class CartTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test //проверка удаления продукта из корзины
+    @Test(testName = "Удаление продукта из корзины",
+            description = "Проверка удаления продукта из корзины",
+            groups = {"regress"}
+    )
     public void removeProductFromCart() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
