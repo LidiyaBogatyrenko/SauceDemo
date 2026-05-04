@@ -11,7 +11,7 @@ public class LoginTest extends BaseTest {
             groups = {"smoke"})
     public void checkPositiveLogin() {
         loginPage.open();
-        loginPage.login("standard_user1", "secret_sauce");
+        loginPage.login("standard_user", "secret_sauce");
         Assert.assertEquals(productsPage.getTitle(), "Products");
     }
     //Тестовые данные для негативного тестирования входа в систему
