@@ -8,16 +8,16 @@ public class LoginPage extends BasePage {
     1. Описываем в классе элементы, с которыми мы взаимодействуем.
     2. Описываем методы взаимодействия с этими элементами.
      */
-    private  final By USERNAME_FIELD = By.xpath("//*[@id=\"user-name\"]");
-    private  final By PASSWORD_FIELD = By.xpath("//*[@id=\"password\"]");
-    private  final By LOGIN_BUTTON = By.xpath("//*[@id=\"login-button\"]");
-    private  final By ERROR_MESSAGE = By.xpath("//*[@data-test=\"error\"]");
+    private final By USERNAME_FIELD = By.xpath("//*[@id=\"user-name\"]");
+    private final By PASSWORD_FIELD = By.xpath("//*[@id=\"password\"]");
+    private final By LOGIN_BUTTON = By.xpath("//*[@id=\"login-button\"]");
+    private final By ERROR_MESSAGE = By.xpath("//*[@data-test=\"error\"]");
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public  void open() {
+    public void open() {
         driver.get(BASE_URL);
     }
 

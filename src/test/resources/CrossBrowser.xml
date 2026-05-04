@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2"
+       name="Sauce Demo"
+       parallel="classes">
+
+    <test name="Chrome">
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.ProductsListTest"/>
+            <class name="tests.CartTest"/>
+            <class name="tests.CheckoutTest"/>
+            <parameter name="browser" value="chrome"/>
+        </classes>
+    </test>
+
+    <test name="Firefox">
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.ProductsListTest"/>
+            <class name="tests.CartTest"/>
+            <class name="tests.CheckoutTest"/>
+            <parameter name="browser" value="firefox"/>
+        </classes>
+    </test>
+</suite>
