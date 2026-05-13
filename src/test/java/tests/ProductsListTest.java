@@ -6,7 +6,10 @@ import org.testng.asserts.SoftAssert;
 
 public class ProductsListTest extends BaseTest {
 
-    @Test //проверка добавления удаления продуктов из корзины
+    @Test(testName = "Добавление и удаление продуктов из корзины",
+            description = "Позитивная проверка добавления и удаления продуктов из корзины",
+            groups = {"regress"}
+    )
     public void removeProductsFromProductsList() {
         SoftAssert softAssert = new SoftAssert();
         loginPage.open();
@@ -29,5 +32,6 @@ public class ProductsListTest extends BaseTest {
             productsPage.removeProductFromProductsList(0);
         }
         softAssert.assertEquals(productsPage.getCountOnCartIcon(), "0");
-        softAssert.assertAll();    }
+        softAssert.assertAll();
+    }
 }
