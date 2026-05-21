@@ -1,4 +1,4 @@
-package tests;
+package utils;
 
 import org.testng.annotations.ITestAnnotation;
 import org.testng.internal.annotations.IAnnotationTransformer;

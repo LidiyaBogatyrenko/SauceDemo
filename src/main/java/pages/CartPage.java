@@ -1,8 +1,11 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -20,39 +23,66 @@ public class CartPage extends BasePage {
     public CartPage(WebDriver driver) {
         super(driver);
     }
-    //получение заголовка корзины
+
+    @Override
+    @Step("Открытие страницы корзины")
+    public CartPage openPage() {
+        driver.get(BASE_URL + "/cart.html");
+        return this;
+    }
+
+    @Override
+    @Step("Проверка, что страница загружена")
+    public CartPage isPageOpened() {
+        wait.until(driver -> ((JavascriptExecutor) driver)
+                .executeScript("return document.readyState").equals("complete"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
+    }
+
+    @Step("Получение заголовка корзины")
     public String getTitle() {
         return driver.findElement(TITLE).getText();
     }
-    //кол-во продуктов в корзине
+
+    @Step("Подсчёт кол-ва товаров в корзине")
     public int countProductInCart() {
         return driver.findElements(COUNT_PRODUCT_IN_CART).size();
     }
-    //получение наименования продукта в корзине
+
+    @Step("Получение наименования товара в корзине")
     public String getProductNameInCart(int indexProduct) {
         List<WebElement> productNameInCart = driver.findElements(PRODUCT_NAME);
         return productNameInCart.get(indexProduct).getText();
     }
-    //получение цены продукта
+
+    @Step("Получение цены товара")
     public String getProductPriceInCart(int indexProduct) {
         List<WebElement> productPriceInCart = driver.findElements(PRODUCT_PRICE);
         return productPriceInCart.get(indexProduct).getText();
     }
-    //получение описания продукта
+
+    @Step("Получение описания товара")
     public String getProductDescription(int indexProduct) {
         return driver.findElements(PRODUCT_DESCRIPTION).get(indexProduct).getText();
     }
-    //удаление продукта из корзины (по индексу)
-    public void removeProductInCart(int indexProduct) {
+
+    @Step("Удаление товара из корзины (по индексу)")
+    public CartPage removeProductInCart(int indexProduct) {
         List<WebElement> removeButton = driver.findElements(REMOVE_BUTTON);
         removeButton.get(indexProduct).click();
+        return this;
     }
-    //переход к checkout
-    public void goToCheckout() {
+
+    @Step("Переход на страницу Checkout")
+    public CheckoutPage goToCheckout() {
         driver.findElement(CHECKOUT_BUTTON).click();
+        return new CheckoutPage(driver);
     }
-    //переход к списку продуктов нажатием на кнопку "Continue Shopping"
-    public void goToProductsList() {
+
+    @Step("Переход к списку продуктов нажатием на кнопку \"Continue Shopping\"")
+    public ProductsPage goToProductsList() {
         driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+        return new ProductsPage(driver);
     }
 }

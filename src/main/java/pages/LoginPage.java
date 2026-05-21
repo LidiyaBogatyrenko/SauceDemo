@@ -1,7 +1,10 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
     /*
@@ -17,16 +20,29 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void open() {
+    @Override
+    public LoginPage openPage() {
         driver.get(BASE_URL);
+        return this;
     }
 
-    public void login(String user, String password) {
+    @Override
+    public LoginPage isPageOpened() {
+        wait.until(driver -> ((JavascriptExecutor) driver)
+                .executeScript("return document.readyState").equals("complete"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+        return this;
+    }
+
+    @Step("Вход в систему с логином:'{user}' и паролем: '{password}'")
+    public ProductsPage login(String user, String password) {
         driver.findElement(USERNAME_FIELD).sendKeys(user);
         driver.findElement(PASSWORD_FIELD).sendKeys(password);
         driver.findElement(LOGIN_BUTTON).click();
+        return new ProductsPage(driver);
     }
 
+    @Step("Получение ошибки при входе в систему")
     public String getErrorMessage() {
         return driver.findElement(ERROR_MESSAGE).getText();
     }

@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -14,41 +15,47 @@ public class CartTest extends BaseTest {
     3d. Проверить (assertEquals) стоимость товара и его имя в корзине
     4. Создать Pull Request и добавить ментора в коллабораторы
      */
-    @Test(testName = "Добавление одного продукта в корзину",
-            description = "Проверка добавления одного продукта в корзину и проверка его наименования и цены",
+    @Test(testName = "Добавление одного товара в корзину",
+            description = "Добавление одного товара в корзину и проверка его наименования и цены",
             groups = {"smoke"}
     )
+    @Description("Проверка добавления одного товара в корзину и проверка его наименования и цены")
+    @Severity(SeverityLevel.NORMAL)
+    @Link("https://confluence.pflb.ru/")
+    @TmsLink("CMCH-4")
+    @Issue("CMCH-4")
+    @Owner("Bogatyrenko Lidiya")
     public void addOneProductInCart() {
         SoftAssert softAssert = new SoftAssert();
-
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.getTitle();
+        loginStep.possitiveAuth("standard_user", "secret_sauce");
         //получаем наименование и цену продукта в списке товаров
         String nameItem = productsPage.getProductName(3);
         String priceItem = productsPage.getProductPrice(3);
-        //добавляем продукта в корзину
-        productsPage.addProductInCart(3);
-        //переходим в корзину
-        productsPage.goToCart();
-        //получаем наименование и цену продукта
+        //добавляем продукта в корзину и переходим в корзину
+        productsPage.addProductInCart(3)
+        .goToCart();
+        //получаем наименование и цену продукта. Сравниваем их в корзине
         String nameItemInCart = cartPage.getProductNameInCart(0);
         String priceItemInCart = cartPage.getProductPriceInCart(0);
-        //сравниваем наименование продукта и цену в списке и в корзине
         softAssert.assertEquals(nameItemInCart, nameItem);
         softAssert.assertEquals(priceItemInCart, priceItem);
         driver.quit();
         softAssert.assertAll();
     }
 
-    @Test(testName = "Удаление продукта из корзины",
-            description = "Проверка удаления продукта из корзины",
+    @Test(testName = "Удаление товара из корзины",
+            description = "Удаление товара из корзины",
             groups = {"regress"}
     )
+    @Description("Проверка удаления товара из корзины")
+    @Severity(SeverityLevel.NORMAL)
+    @Link("https://confluence.pflb.ru/")
+    @TmsLink("CMCH-5")
+    @Issue("CMCH-5")
+    @Owner("Bogatyrenko Lidiya")
     public void removeProductFromCart() {
         SoftAssert softAssert = new SoftAssert();
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginStep.possitiveAuth("standard_user", "secret_sauce");
         //достаём наименование первого продукта и добавляем его в корзину
         String productNameInList = productsPage.getProductName(0);
         productsPage.addProductInCart(0);
