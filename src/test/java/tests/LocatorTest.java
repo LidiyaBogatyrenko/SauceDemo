@@ -77,6 +77,5 @@ public class LocatorTest {
         driver.findElement(By.cssSelector("[href$=\"saucelabs\"]"));
         //css: [attribute*=value]
         driver.findElement(By.cssSelector("[href*=\"sauce\"]"));
-        driver.quit();
     }
 }
