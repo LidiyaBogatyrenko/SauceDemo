@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,9 +10,17 @@ public class LoginTest extends BaseTest {
     @Test(testName = "Проверка входа в систему с позитивными кредами",
             description = "Позитивная проверка входа в систему с корректными кредами",
             groups = {"smoke"})
+    @Description("Проверка входа в систему с позитивными кредами")
+    @Epic("E2E")
+    @Feature("Login to SauceDemo")
+    @Story("ЯКК хочу логиниться в SuaceDemo")
+    @Severity(SeverityLevel.BLOCKER)
+    @Link("https://confluence.pflb.ru/")
+    @TmsLink("CMCH-1")
+    @Issue("CMCH-1")
+    @Owner("Bogatyrenko Lidiya")
     public void checkPositiveLogin() {
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginStep.possitiveAuth("standard_user", "secret_sauce");
         Assert.assertEquals(productsPage.getTitle(), "Products");
     }
     //Тестовые данные для негативного тестирования входа в систему
@@ -29,9 +38,14 @@ public class LoginTest extends BaseTest {
     testName = "Ошибки при входе в систему",
     description = "Проверка получения ошибок при входе в систему без логина/без пароля/под заблокированным пользователем/с негативными кредами",
     groups = {"smoke"})
+    @Description("Проверка входа в систему с позитивными кредами")
+    @Severity(SeverityLevel.NORMAL)
+    @Link("https://confluence.pflb.ru/")
+    @TmsLink("CMCH-2")
+    @Issue("CMCH-2")
+    @Owner("Bogatyrenko Lidiya")
     public void allTestNegativeLogin(String user, String password, String errorMessage) {
-        loginPage.open();
-        loginPage.login(user, password);
+        loginStep.negativeAuth(user, password);
         Assert.assertEquals(loginPage.getErrorMessage(), errorMessage);
     }
 }

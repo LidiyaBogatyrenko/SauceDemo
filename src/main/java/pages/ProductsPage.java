@@ -1,6 +1,9 @@
 package pages;
 
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+@Log4j2
 public class ProductsPage extends BasePage {
 
     private final By TITLE = By.cssSelector("[data-test=title]");
@@ -26,44 +30,74 @@ public class ProductsPage extends BasePage {
     public ProductsPage(WebDriver driver) {
         super(driver);
     }
-    //открытие страницы продуктов
-    public void open() {
+
+    @Override
+    @Step("Открытие страницы товаров")
+    public ProductsPage openPage() {
+        log.info("ProductsPage opening");
         driver.get(BASE_URL + "/inventory.html");
+        return this;
     }
-    //получение заголовка на странице продуктов
+
+    @Override
+    public ProductsPage isPageOpened() {
+        log.info("ProductsPage loading");
+        wait.until(driver -> ((JavascriptExecutor) driver)
+                .executeScript("return document.readyState").equals("complete"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(TITLE));
+        return this;
+    }
+
+    @Step("Получение заголовка на странице товаров")
     public String getTitle() {
+        log.info("Getting the title of ProductsPage");
         return driver.findElement(TITLE).getText();
     }
-    //получение наименования продукта (по индексу)
+
+    @Step("Получение наименования товара")
     public String getProductName(int indexProduct) {
+        log.info("Getting the product name");
         List<WebElement> productName = driver.findElements(PRODUCT_NAME);
         return productName.get(indexProduct).getText();
     }
-    //получение цена продукта (по индексу)
+
+    @Step("Получение цены товара")
     public String getProductPrice(int indexPrice) {
+        log.info("Getting the product price");
         List<WebElement> productPrice = driver.findElements(PRODUCT_PRICE);
         return productPrice.get(indexPrice).getText();
     }
-    //добавление товара в корзину по индексу
-    public void addProductInCart(int indexProduct) {
+
+    @Step("Добавление товара в корзину")
+    public ProductsPage addProductInCart(int indexProduct) {
+        log.info("Adding a product to the cart");
         List<WebElement> products = driver.findElements(ADD_TO_CART_BUTTON);
         products.get(indexProduct).click();
+        return this;
     }
-    //удаление продукта
-    public  void removeProductFromProductsList(int indexProduct) {
+
+    @Step("Удаление товара из корзины")
+    public ProductsPage removeProductFromProductsList(int indexProduct) {
+        log.info("Removing a product from the cart");
         driver.findElements(REMOVE_BUTTON).get(indexProduct).click();
+        return this;
     }
-    //переход в корзину по клику на иконку корзины
+    @Step("Переход в корзину по клику на иконку корзины")
     public void goToCart() {
+        log.info("Go to the shopping cart by clicking on the cart icon.");
         driver.findElement(SHOPPING_CART_BUTTON).click();
     }
-    //получение кол-ва продуктов на странице
+
+    @Step("Получение кол-ва продуктов на странице")
     public Integer getCountProducts() {
+        log.info("Getting the count of products on a page");
         List<WebElement> countProducts = driver.findElements(COUNT_PRODUCTS);
         return countProducts.size();
     }
-    //кол-во товаров в иконке корзины
+
+    @Step("Определение кол-ва товаров в иконке корзины")//
     public String getCountOnCartIcon() {
+        log.info("Determining the count of products in the cart icon");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(COUNT_ON_CART_ICON));

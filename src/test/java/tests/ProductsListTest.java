@@ -1,20 +1,25 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class ProductsListTest extends BaseTest {
 
-    @Test(testName = "Добавление и удаление продуктов из корзины",
-            description = "Позитивная проверка добавления и удаления продуктов из корзины",
+    @Test(testName = "Добавление и удаление товаров из корзины",
+            description = "Добавление и удаление товаров из корзины",
             groups = {"regress"}
     )
+    @Description("Позитивная проверка добавления и удаления товаров из корзины")
+    @Severity(SeverityLevel.NORMAL)
+    @Link("https://confluence.pflb.ru/")
+    @TmsLink("CMCH-3")
+    @Issue("CMCH-3")
+    @Owner("Bogatyrenko Lidiya")
     public void removeProductsFromProductsList() {
         SoftAssert softAssert = new SoftAssert();
-        loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.getTitle();
+        loginStep.possitiveAuth("standard_user", "secret_sauce");
         //добавляем все товары в корзину, которые есть на странице
         int countProductsInProductsList = productsPage.getCountProducts();
         for (int i = 1; i <= countProductsInProductsList; i++) {
