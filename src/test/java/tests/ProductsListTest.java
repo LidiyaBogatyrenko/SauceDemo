@@ -19,7 +19,7 @@ public class ProductsListTest extends BaseTest {
     @Owner("Bogatyrenko Lidiya")
     public void removeProductsFromProductsList() {
         SoftAssert softAssert = new SoftAssert();
-        loginStep.possitiveAuth("standard_user", "secret_sauce");
+        loginStep.possitiveAuth(user, password);
         //добавляем все товары в корзину, которые есть на странице
         int countProductsInProductsList = productsPage.getCountProducts();
         for (int i = 1; i <= countProductsInProductsList; i++) {

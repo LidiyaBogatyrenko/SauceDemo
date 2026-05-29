@@ -20,14 +20,14 @@ public class LoginTest extends BaseTest {
     @Issue("CMCH-1")
     @Owner("Bogatyrenko Lidiya")
     public void checkPositiveLogin() {
-        loginStep.possitiveAuth("standard_user", "secret_sauce");
+        loginStep.possitiveAuth(user, password);
         Assert.assertEquals(productsPage.getTitle(), "Products");
     }
     //Тестовые данные для негативного тестирования входа в систему
     @DataProvider(name = "Тестовые данные для негативного логина")
     public  Object[][] loginData() {
         return  new  Object[][] {
-                {"standard_user", "", "Epic sadface: Password is required"}, // без логина
+                {user, "", "Epic sadface: Password is required"}, // без логина
                 {"", "secret_sauce", "Epic sadface: Username is required"}, // без пароля
                 {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."}, // заблокированных пользователь
                 {"test", "test", "Epic sadface: Username and password do not match any user in this service"} // с негативными кредами

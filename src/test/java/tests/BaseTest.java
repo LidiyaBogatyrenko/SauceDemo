@@ -27,6 +27,9 @@ public class BaseTest {
     protected CheckoutOverviewPage checkoutOverviewPage;
     protected LoginStep loginStep;
 
+    protected String user = System.getProperty("user");
+    protected String password = System.getProperty("password");
+
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройка браузера")
     @Description("Настройка браузера")

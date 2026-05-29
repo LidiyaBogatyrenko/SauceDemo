@@ -13,11 +13,16 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+  schedule:
+    - cron: '0 10 * * *'
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      USER: ${{secrets.SD_USER}}
+      PASSWORD: ${{secrets.SD_PASSWORD}}
 
     steps:
     - uses: actions/checkout@v4
@@ -28,4 +33,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Tests Run
-      run: mvn clean test
+      run: mvn clean -Duser=$USER -Dpassword=$PASSWORD test

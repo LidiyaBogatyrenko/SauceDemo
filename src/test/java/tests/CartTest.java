@@ -27,7 +27,7 @@ public class CartTest extends BaseTest {
     @Owner("Bogatyrenko Lidiya")
     public void addOneProductInCart() {
         SoftAssert softAssert = new SoftAssert();
-        loginStep.possitiveAuth("standard_user", "secret_sauce");
+        loginStep.possitiveAuth(user, password);
         //получаем наименование и цену продукта в списке товаров
         String nameItem = productsPage.getProductName(3);
         String priceItem = productsPage.getProductPrice(3);
@@ -55,7 +55,7 @@ public class CartTest extends BaseTest {
     @Owner("Bogatyrenko Lidiya")
     public void removeProductFromCart() {
         SoftAssert softAssert = new SoftAssert();
-        loginStep.possitiveAuth("standard_user", "secret_sauce");
+        loginStep.possitiveAuth(user, password);
         //достаём наименование первого продукта и добавляем его в корзину
         String productNameInList = productsPage.getProductName(0);
         productsPage.addProductInCart(0);

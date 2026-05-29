@@ -19,7 +19,7 @@ public class CheckoutTest extends BaseTest {
     @Owner("Bogatyrenko Lidiya")
     public void fillPositiveCheckoutInformation () {
         SoftAssert softAssert = new SoftAssert();
-        loginStep.possitiveAuth("standard_user", "secret_sauce");
+        loginStep.possitiveAuth(user, password);
         productsPage.addProductInCart(0)
                 .goToCart();
         softAssert.assertEquals(cartPage.countProductInCart(), 1);
@@ -52,7 +52,7 @@ public class CheckoutTest extends BaseTest {
     @Owner("Bogatyrenko Lidiya")
     public  void negativeCheckoutInformation(String firstName, String lastName, String postalCode, String errorMessage) {
         SoftAssert softAssert = new SoftAssert();
-        loginStep.possitiveAuth("standard_user", "secret_sauce");
+        loginStep.possitiveAuth(user, password);
         productsPage.addProductInCart(0)
                 .goToCart();
         softAssert.assertEquals(cartPage.countProductInCart(), 1);
