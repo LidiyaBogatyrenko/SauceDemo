@@ -1,24 +1,13 @@
 package tests;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 import org.testng.annotations.Test;
-import java.util.HashMap;
-public class LocatorTest {
+
+
+public class LocatorTest extends BaseTest {
 
     @Test
     public void checkLocator() {
-        ChromeOptions options = new ChromeOptions();
-        HashMap<String, Object> chromePrefs = new HashMap<>();
-        chromePrefs.put("credentials_enable_service", false);
-        chromePrefs.put("profile.password_manager_enabled", false);
-        options.setExperimentalOption("prefs", chromePrefs);
-        options.addArguments("--incognito");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-        options.addArguments("--disable-infobars");
-        WebDriver driver = new ChromeDriver(options);
 
         driver.get("https://www.saucedemo.com/");
         driver.findElement(By.id("user-name"));
@@ -26,8 +15,8 @@ public class LocatorTest {
         driver.findElement(By.className("login_credentials_wrap"));
         driver.findElement(By.tagName("div"));
         //логинимся
-        driver.findElement(By.xpath("//*[@id=\"user-name\"]")).sendKeys("standard_user");
-        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys("secret_sauce");
+        driver.findElement(By.xpath("//*[@id=\"user-name\"]")).sendKeys(user);
+        driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(password);
         driver.findElement(By.xpath("//*[@id=\"login-button\"]")).click();
         //продолжаем поиск локаторов
         driver.findElement(By.linkText("Sauce Labs Backpack"));
